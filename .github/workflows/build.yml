@@ -27,8 +27,9 @@ jobs:
           sed -i 's#</application>#<meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-3940256099942544~3347511713"/></application>#' $M
           sed -i 's/flutter\.minSdkVersion/24/' android/app/build.gradle* || true
       - run: flutter pub get
-      - run: flutter build apk --release
+      - run: flutter build apk --release --split-per-abi
+      - run: flutter build apk --debug
       - uses: actions/upload-artifact@v4
         with:
           name: countryball-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: build/app/outputs/flutter-apk/*.apk
